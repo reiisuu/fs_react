@@ -4,9 +4,25 @@ const Header = (props) => <h1>{props.text}</h1>
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Display = ({ text, number }) => <p>{text} {number}</p>
+// const Display = ({ text, number }) => <p>{text} {number}</p>
 
-const Statistics = ({text, value}) => <p>{text} {value}</p>
+const Statistics = ({good, neutral, bad, all, average, positive}) => {
+  if (all === 0) 
+    return (
+      <p> No feedback given </p>
+  )
+
+  return (
+    <>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>all {all}</p>
+      <p>average {average}</p>
+      <p>positive {positive}</p>
+    </>
+  )
+}
 
 const App = () => {
   // save clicks of each button to its own state
@@ -90,13 +106,7 @@ const App = () => {
 
       <Header text = 'statistics' />
 
-      <Display text = 'good' number = {good} />
-      <Display text = 'neutral' number = {neutral} />
-      <Display text = 'bad' number = {bad} />
-
-      <Statistics text = 'all' value = {all} />
-      <Statistics text = 'average' value = {average} />
-      <Statistics text = 'positive' value = {positive} />
+      <Statistics good = {good} neutral = {neutral} bad = {bad} all = {all} average = {average} positive = {positive} />
 
     </div>
   )
