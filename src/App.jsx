@@ -1,16 +1,8 @@
 import { useState } from 'react'
 
-const Button = ({ onClick, selected}) => {
+const Button = ({ onClick }) => (<button onClick={onClick}>next anecdote</button>)
 
-console.log(selected);
-
-  return (
-    <>
-      <button onClick = {onClick}>next anecdote</button>
-      
-    </>
-  )
-}
+const Vote = ({ onClick }) => (<button onClick={onClick}>vote</button>)
 
 const App = () => {
   const anecdotes = [
@@ -25,28 +17,33 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [vote, setVote] = useState(new Array(anecdotes.length).fill(0))
 
   const handleAnecdote = () => {
-    if (selected == anecdotes.length - 1)
-    {
-      setSelected(0);
-      console.log(selected);
+    if (selected === anecdotes.length - 1) {
+      setSelected(0)
+      console.log(selected)
+    } else {
+      setSelected(selected + 1)
+      console.log(selected)
     }
-    else
-    {
-    
-      setSelected(selected + 1);
-      console.log(selected);
-    }
+  }
+
+  const handleVote = () => {
+    const copy = [...vote] // create copy of array
+    copy[selected] += 1 // adds 1 each click to a specific index of the array
+    setVote(copy) // updates the state
+    console.log(copy[selected])
   }
 
   return (
     <>
       <div>
-        {anecdotes[selected]}
+        {anecdotes[selected]} | votes {vote[selected]}
       </div>
 
-      <Button onClick = {handleAnecdote} selected = {selected} />
+      <Vote onClick={handleVote} />
+      <Button onClick={handleAnecdote} />
     </>
   )
 }
