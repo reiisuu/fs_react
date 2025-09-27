@@ -4,6 +4,27 @@ const Button = ({ onClick }) => (<button onClick={onClick}>next anecdote</button
 
 const Vote = ({ onClick }) => (<button onClick={onClick}>vote</button>)
 
+const Highest = ({anecdotes, vote}) => {
+
+  let highest = 0
+
+  for (let i = 1; i < vote.length; i++)
+  {
+    if (vote[i] > vote[highest])
+    {
+      highest = i;
+    }
+  }
+
+  return (
+    <>
+      <h1>Anecdote with most votes</h1>
+
+      <p>{anecdotes[highest]} | has {vote[highest]} votes</p>
+    </>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -44,6 +65,7 @@ const App = () => {
 
       <Vote onClick={handleVote} />
       <Button onClick={handleAnecdote} />
+      <Highest anecdotes = {anecdotes} vote = {vote} />
     </>
   )
 }
